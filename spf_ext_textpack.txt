@@ -1,0 +1,27 @@
+spf_ext Textpack (en_gb)
+
+To install a Textpack for your own language:
+
+- copy the 16 lines of code below into a text editor;
+- change line 2 to relect your own language (e.g. for Spanish: #@language es-es);
+- edit the strings after => to your own language - but leave {name} as it is;
+- copy and paste your 16 lines into the 'Install Textpack' window at the bottom of the Admin > Preferences > Language admin panel;
+- click Upload and you're done.
+
+Note: Textpacks will be removed when you delete this plugin.
+
+#@spf_ext
+#@language en-gb
+spf_ext_files => External Files
+spf_ext_dir => External files directory
+spf_filename => Filename
+spf_edit_file => You are editing file
+spf_all_files => All Files
+spf_file_updated => File <strong>{name}</strong> updated.
+spf_file_name => External file name
+spf_copy_file => &#8230;or copy file as
+spf_create_new_file => Create new file
+spf_file_created => File <strong>{name}</strong> created.
+spf_file_name_required => Please provide a name for your file.
+spf_file_exists => File <strong>{name}</strong> already exists.
+spf_file_deleted => File <strong>{name}</strong> deleted.
