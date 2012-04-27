@@ -11,15 +11,16 @@ existing files).
 
 **Please read the instructions and notes below before use.**
 
-Latest version: [spf\_ext GitHub repository][].
-
 This plugin creates external files you can manage and edit via the admin
 interface. All files are saved to the directory you create in step 1 of
 the instructions below. Syntax highlighting is available via the
 [Codemirror admin theme][] (currently HTML, PHP and JavaScript - more to
 come).
 
-  
+
+[DOWNLOAD][]
+
+
 
 * * * * *
 
@@ -110,6 +111,6 @@ GitHub][].
 0.1 - April 2012 - first release.
 
   [Textpattern]: http://www.textpattern.com/
-  [spf\_ext GitHub repository]: https://github.com/spiffin/spf_ext
+  [DOWNLOAD]: https://raw.github.com/spiffin/spf_ext/master/spf_ext_v0.1.txt
   [Codemirror admin theme]: https://github.com/spiffin/CodeMirrorTextpattern
   [instructions on GitHub]: https://github.com/spiffin/spf_ext/blob/master/spf_ext_textpack.txt
