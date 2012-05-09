@@ -82,8 +82,8 @@ come).
 
 1.  You can only manage files which are read/write to your web server
     (i.e. within your web root) - e.g. Minify config files, external
-    scripts
-2.  Deleting a file via the External Files tab deletes the actual file
+    scripts, etc.
+2.  Deleting a file via the External Files tab deletes the actual file in the ‘ext\_files’ directory
     (as well as the database entry) - use with care!.
 
 
