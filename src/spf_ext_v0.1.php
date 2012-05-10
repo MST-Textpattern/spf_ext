@@ -1,3 +1,5 @@
+<?php
+
 /**
  * spf_ext - External file editor for Textpattern
  *
@@ -363,3 +365,5 @@ function spf_ext_delete() {
     }
 
 }
+
+?>
