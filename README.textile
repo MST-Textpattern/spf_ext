@@ -10,7 +10,7 @@ p. *Please read the instructions and notes below before use.*
 
 p. This plugin creates external files you can manage and edit via the admin interface. All files are saved to the directory you create in step 1 of the instructions below. Syntax highlighting is available via "spf_codemirror":https://github.com/spiffin/spf_codemirror (currently HTML, PHP and JavaScript - more to come).
 
-p. "DOWNLOAD":https://raw.github.com/spiffin/spf_ext/master/spf_ext_v0.1.txt
+p. "DOWNLOAD":https://raw.github.com/spiffin/spf_ext/master/spf_ext.txt
 
 
 h2. Why?
