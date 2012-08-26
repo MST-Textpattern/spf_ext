@@ -17,7 +17,7 @@ $plugin['name'] = 'spf_ext';
 // 1 = Plugin help is in raw HTML.  Not recommended.
 # $plugin['allow_html_help'] = 1;
 
-$plugin['version'] = '0.1';
+$plugin['version'] = '0.2';
 $plugin['author'] = 'Simon Finch';
 $plugin['author_uri'] = 'https://github.com/spiffin/spf_ext';
 $plugin['description'] = 'External file editor';
@@ -75,7 +75,7 @@ if (!defined('txpinterface'))
  * Licensed under GNU General Public License version 2
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Version 0.1 -- 28 April 2012
+ * Version 0.2 -- 26 August 2012
  */
 
 /**
@@ -387,7 +387,7 @@ function spf_ext_write() {
     extract(gpsa(array('filename','spf_ext','savenew','newname','copy')));
 
     $filename = (ps('copy') or ps('savenew')) ? ps('newname') : ps('filename');
-    $file = $prefs['path_to_site'].'/'.$prefs['spf_ext_dir'].'/'.$filename;
+    $file = $prefs['path_to_site'].'/'.$prefs['spf_ext_dir'].'/'.sanitizeForFile($filename);
 
     if (empty($prefs['spf_ext_dir']) or !$filename) {
 
@@ -487,6 +487,7 @@ if (0) {
 
 <h2 id="version-history">Version history</h2>
 <ul>
+<li>0.2 - 26 August 2012 - security enhancements (thanks Jukka).</li>
 <li>0.1 - April 2012 - first release.</li>
 </ul>
 # --- END PLUGIN HELP ---
