@@ -4,7 +4,9 @@ p. External file editor plugin for "Textpattern":http://www.textpattern.com/.
 
 p. Create, edit and delete external (to Textpattern) files in Textpattern admin.
 
-p. REQUIRES: Texpattern 4.4.1 and PHP 5 and shell access (for sym-linking existing files).
+p. REQUIRES: Texpattern 4.5.1 and PHP 5 and shell access (for sym-linking existing files).
+
+p. Use version 0.2 (above) for Textpattern version 4.4.x.
 
 p. *Please read the instructions and notes below before use.*
 
@@ -56,5 +58,6 @@ p. To install a Textpack for your own language see the "instructions on GitHub":
 
 h2. Version history
 
+* 0.3 - 3 November 2012 - Textpattern 4.5.1 compatibility.
 * 0.2 - 26 August 2012 - security enhancements (thanks Jukka).
 * 0.1 - April 2012 - first release.
