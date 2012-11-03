@@ -17,7 +17,7 @@ $plugin['name'] = 'spf_ext';
 // 1 = Plugin help is in raw HTML.  Not recommended.
 # $plugin['allow_html_help'] = 1;
 
-$plugin['version'] = '0.2';
+$plugin['version'] = '0.3';
 $plugin['author'] = 'Simon Finch';
 $plugin['author_uri'] = 'https://github.com/spiffin/spf_ext';
 $plugin['description'] = 'External file editor';
@@ -75,7 +75,7 @@ if (!defined('txpinterface'))
  * Licensed under GNU General Public License version 2
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Version 0.2 -- 26 August 2012
+ * Version 0.3 -- 3 November 2012
  */
 
 /**
@@ -156,6 +156,13 @@ function spf_ext_install($event='', $step='') {
 
     }
 
+    /* Version check */
+    if (txp_version >= '4.5.0') {
+        return;
+    } else {
+        return 'The plugin spf_ext version 0.3 requires Textpattern 4.5.1 - you are running Textpattern ' . txp_version . ' - please delete spf_ext.';
+    }
+
     if(!isset($prefs['spf_ext_dir'])) {
 
         safe_query(
@@ -191,7 +198,9 @@ function spf_ext_install($event='', $step='') {
 
 function spf_ext_list($current) {
 
-    $out[] = startTable('list', 'left');
+    //$out[] = startTable('list', 'left');
+
+$out[] = startTable('', '', 'txp-list');
 
     $rs = safe_rows_start('filename', 'spf_ext', "1=1");
 
@@ -199,7 +208,7 @@ function spf_ext_list($current) {
 
         while ($a = nextRow($rs)) {
             extract($a);
-            $edit = ($current != $filename) ? eLink('spf_ext', '', 'filename', $filename, $filename) : htmlspecialchars($filename);
+            $edit = ($current != $filename) ? eLink('spf_ext', '', 'filename', $filename, $filename) : txpspecialchars($filename);
             $delete = ($filename) ? dLink('spf_ext', 'spf_ext_delete', 'filename', $filename) : '';
             $out[] = tr(td($edit).td($delete));
         }
@@ -259,7 +268,7 @@ function spf_ext_edit_raw() {
 
     } else {
 
-        $buttons = '<div class="edit-title">'.gTxt('spf_edit_script').sp.strong(htmlspecialchars($filename)).'</div>';
+        $buttons = '<div class="edit-title">'.gTxt('spf_edit_script').sp.strong(txpspecialchars($filename)).'</div>';
         $filecontent = fetch("content",'spf_ext','filename',$filename);
 
     }
@@ -278,22 +287,23 @@ function spf_ext_edit_raw() {
     $right =
     '<div id="content_switcher">'.
     hed(gTxt('spf_all_files'),2).
-    graf(sLink('spf_ext', 'pour', gTxt('spf_create_new_file')), ' class="action-create smallerbox"').
+    graf(sLink('spf_ext', 'pour', gTxt('spf_create_new_file')), ' class="action-create"').
     spf_ext_list($filename).
     '</div>';
 
     echo
-    '<div id="'.$event.'_container" class="txp-container txp-edit">'.
-    startTable('edit').
+    '<h1 class="txp-heading">'.gTxt('spf_ext_files').'</h1>'.
+    '<div id="'.$event.'_container" class="txp-container">'.
+    startTable('', '', 'txp-columntable').
     tr(
         td(
             form(
                 '<div id="main_content">'.
                 $buttons.
-                '<textarea id="spf_ext" class="code" name="spf_ext" cols="78" rows="32" style="margin-top: 6px; width: 700px; height: 515px;">'.htmlspecialchars($filecontent).'</textarea>'.br.
-                fInput('submit','',gTxt('save'),'publish').
-                eInput('spf_ext').sInput('spf_ext_save').
-                hInput('filename',$filename)
+                '<textarea id="spf_ext" class="code" name="spf_ext" cols="'.INPUT_LARGE.'" rows="'.INPUT_REGULAR.'" style="height: 39.25em;">'.txpspecialchars($filecontent).'</textarea>'.
+                '<p>'.fInput('submit','',gTxt('save'),'publish').
+                eInput('spf_js').sInput('spf_js_save').
+                hInput('filename',$filename).'</p>'
                 .$copy.
                 '</div>'
             , '', '', 'post', 'edit-form', '', 'style_form')
@@ -437,14 +447,15 @@ if (0) {
 ?>
 <!--
 # --- BEGIN PLUGIN HELP ---
-<h1 id="spf_ext">spf_ext</h1>
+<h1>spf_ext</h1>
 
 <p>External file editor plugin. Create, edit and delete external (to Textpattern) files in Textpattern admin.</p>
-<p>REQUIRES: Texpattern 4.4.1 and PHP 5 and shell access (for sym-linking existing files).</p>
+<p><strong>REQUIRES: Texpattern 4.5.1 and PHP 5 and shell access (for sym-linking existing files).</strong></p>
+<p><a href="https://github.com/spiffin/spf_ext/blob/master/spf_ext_v0.2.txt">Use this version for Textpattern 4.4.1 and below</a>.</p>
 <p><strong>Please read the instructions and notes below before use.</strong></p>
 <p>This plugin creates external files you can manage and edit via the admin interface. All files are saved to the directory you create in step 1 of the instructions below. Syntax highlighting is available via <a href="https://github.com/spiffin/spf_codemirror">spf_codemirror</a> (currently HTML, PHP and JavaScript - more to come).</p>
 
-<h2 id="why">Why?</h2>
+<h2>Why?</h2>
 <ul>
 <li>This plugin allows you to edit and manage site files residing outside Textpattern within the Textpattern admin area (see ‘Procedure for managing existing files’ below).</li>
 <li>It offers an easy way to create static files you can edit and access via your page templates: <code>&lt;txp:site_url /&gt;ext_files/yourfile.html</code></li>
@@ -452,7 +463,7 @@ if (0) {
 
 <hr />
 
-<h2 id="instructions">Instructions:</h2>
+<h2>Instructions:</h2>
 
 <ol>
 <li>Create a directory for the static external files in the root of your textpattern installation called ‘ext_files’ (or whatever you like). You should make sure that PHP is able to write to that directory.</li>
@@ -462,7 +473,7 @@ if (0) {
 <li>Always include a file extension in the file name (.html, .php, etc.).</li>
 </ol>
 
-<h2 id="procedure-for-managing-existing-files">Procedure for managing existing files:</h2>
+<h2>Procedure for managing existing files:</h2>
 <ol>
 <li>Copy the contents of the file (called for example myfile.php) into a new file in Extensions &gt; External Files &gt; Create new file.</li>
 <li>Name the new file (External file name:) ‘myfile.php’.</li>
@@ -472,20 +483,20 @@ if (0) {
 
 <hr />
 
-<h2 id="notes">Notes:</h2>
+<h2>Notes:</h2>
 <ol>
 <li>You can only manage files which are read/write to your web server e.g. Minify config files, external scripts, etc.</li>
 <li>Deleting a file via the External Files tab deletes the actual file in the ’ext_files’ directory (as well as the database entry) - use with care!.</li>
 </ol>
 
 
-<h2 id="languages-textpack">Languages (Textpack)</h2>
+<h2>Languages (Textpack)</h2>
 <ul>
 <li>This plugin installs an English Textpack by default.</li>
 <li>To install a Textpack for your own language see the <a href="https://github.com/spiffin/spf_ext/blob/master/spf_ext_textpack.txt">instructions on GitHub</a>.</li>
 </ul>
 
-<h2 id="version-history">Version history</h2>
+<h2>Version history</h2>
 <ul>
 <li>0.2 - 26 August 2012 - security enhancements (thanks Jukka).</li>
 <li>0.1 - April 2012 - first release.</li>
