@@ -4,7 +4,9 @@ p. External file editor plugin for "Textpattern":http://www.textpattern.com/.
 
 p. Create, edit and delete external (to Textpattern) files in Textpattern admin.
 
-p. REQUIRES: Texpattern 4.4.1 and PHP 5 and shell access (for sym-linking existing files).
+p. REQUIRES: Texpattern 4.5.1 and PHP 5 and shell access (for sym-linking existing files).
+
+p. Use "version 0.2":https://github.com/spiffin/spf_ext/blob/master/spf_ext_v0.2.txt for Textpattern 4.4.1.
 
 p. *Please read the instructions and notes below before use.*
 
