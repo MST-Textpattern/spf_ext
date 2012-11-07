@@ -17,7 +17,7 @@ $plugin['name'] = 'spf_ext';
 // 1 = Plugin help is in raw HTML.  Not recommended.
 # $plugin['allow_html_help'] = 1;
 
-$plugin['version'] = '0.3';
+$plugin['version'] = '0.31';
 $plugin['author'] = 'Simon Finch';
 $plugin['author_uri'] = 'https://github.com/spiffin/spf_ext';
 $plugin['description'] = 'External file editor';
@@ -63,6 +63,7 @@ spf_file_exists => File <strong>{name}</strong> already exists.
 spf_file_deleted => File <strong>{name}</strong> deleted.
 EOT;
 
+
 if (!defined('txpinterface'))
         @include_once('zem_tpl.php');
 
@@ -75,7 +76,7 @@ if (!defined('txpinterface'))
  * Licensed under GNU General Public License version 2
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Version 0.3 -- 3 November 2012
+ * Version 0.31 -- 7 November 2012
  */
 
 /**
@@ -87,7 +88,8 @@ if (@txpinterface == 'admin') {
     add_privs('spf_ext', '1');
     register_tab('extensions', 'spf_ext', gTxt('spf_ext_files'));
     register_callback('spf_ext_gui', 'spf_ext');
-    register_callback('spf_ext_install', 'plugin_lifecycle.spf_ext');
+    register_callback('spf_ext_install', 'plugin_lifecycle.spf_ext', 'installed');
+    register_callback('spf_ext_remove', 'plugin_lifecycle.spf_ext', 'deleted');
 
 }
 
@@ -126,14 +128,13 @@ function spf_ext_gui() {
 }
 
 /**
- * Installer function
+ * Removal function
  */
 
-function spf_ext_install($event='', $step='') {
+function spf_ext_remove($event, $step) {
+global $prefs, $step;
 
-    global $prefs;
-
-    if($step == 'deleted') {
+    if(isset($prefs['spf_ext_dir'])) {
 
         safe_delete(
             'txp_prefs',
@@ -152,16 +153,16 @@ function spf_ext_install($event='', $step='') {
             "event = 'spf_ext'"
         );
 
-        return;
-
     }
 
-    /* Version check */
-    if (txp_version >= '4.5.0') {
-        return;
-    } else {
-        return 'The plugin spf_ext version 0.3 requires Textpattern 4.5.1 - you are running Textpattern ' . txp_version . ' - please delete spf_ext.';
-    }
+}
+
+/**
+ * Installer function
+ */
+
+function spf_ext_install($event, $step) {
+global $prefs, $step;
 
     if(!isset($prefs['spf_ext_dir'])) {
 
@@ -498,6 +499,7 @@ if (0) {
 
 <h2>Version history</h2>
 <ul>
+<li>0.31 - 7 November 2012 - rewritten for Textpattern 4.5.x.</li>
 <li>0.2 - 26 August 2012 - security enhancements (thanks Jukka).</li>
 <li>0.1 - April 2012 - first release.</li>
 </ul>
