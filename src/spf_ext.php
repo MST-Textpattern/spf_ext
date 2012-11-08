@@ -141,7 +141,7 @@ global $prefs, $step;
             "name='spf_ext_dir'"
         );
 
-        // Don't drop the table - just in case..
+        // Don't drop the table - just in case.
         //@safe_query(
         //    'DROP TABLE IF EXISTS '.safe_pfx('spf_ext')
         //);
