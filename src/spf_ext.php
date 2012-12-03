@@ -17,7 +17,7 @@ $plugin['name'] = 'spf_ext';
 // 1 = Plugin help is in raw HTML.  Not recommended.
 # $plugin['allow_html_help'] = 1;
 
-$plugin['version'] = '0.31';
+$plugin['version'] = '0.4';
 $plugin['author'] = 'Simon Finch';
 $plugin['author_uri'] = 'https://github.com/spiffin/spf_ext';
 $plugin['description'] = 'External file editor';
@@ -63,7 +63,6 @@ spf_file_exists => File <strong>{name}</strong> already exists.
 spf_file_deleted => File <strong>{name}</strong> deleted.
 EOT;
 
-
 if (!defined('txpinterface'))
         @include_once('zem_tpl.php');
 
@@ -76,7 +75,7 @@ if (!defined('txpinterface'))
  * Licensed under GNU General Public License version 2
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Version 0.31 -- 7 November 2012
+ * Version 0.4 -- 3 December 2012
  */
 
 /**
@@ -141,7 +140,7 @@ global $prefs, $step;
             "name='spf_ext_dir'"
         );
 
-        // Don't drop the table - just in case.
+        // Don't drop the table - just in case..
         //@safe_query(
         //    'DROP TABLE IF EXISTS '.safe_pfx('spf_ext')
         //);
@@ -303,7 +302,7 @@ function spf_ext_edit_raw() {
                 $buttons.
                 '<textarea id="spf_ext" class="code" name="spf_ext" cols="'.INPUT_LARGE.'" rows="'.INPUT_REGULAR.'" style="height: 39.25em;">'.txpspecialchars($filecontent).'</textarea>'.
                 '<p>'.fInput('submit','',gTxt('save'),'publish').
-                eInput('spf_js').sInput('spf_js_save').
+                eInput('spf_ext').sInput('spf_ext_save').
                 hInput('filename',$filename).'</p>'
                 .$copy.
                 '</div>'
@@ -499,6 +498,7 @@ if (0) {
 
 <h2>Version history</h2>
 <ul>
+<li>0.4 - 3 December 2012 - fixed a silly typo.</li>
 <li>0.31 - 7 November 2012 - rewritten for Textpattern 4.5.x.</li>
 <li>0.2 - 26 August 2012 - security enhancements (thanks Jukka).</li>
 <li>0.1 - April 2012 - first release.</li>
